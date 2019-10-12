@@ -2,7 +2,15 @@
 #include "dominion_helpers.h"
 #include "interface.h"
 
-int playBaron(struct gameState* state, int choice, int currentPlayer) {
+/* ---------------------------------------------------------------------
+ * Plays the Baron card. Accepts arguments for whether the player
+ * chooses 1) to discard an estate for bonus coin or 2) to gain an
+ * estate, who the current player is, and a pointer to the gameState.
+ * Updates the game state according to card rules and returns 0 upon
+ * success.
+ * ---------------------------------------------------------------------
+ */
+int playBaron(int choice, int currentPlayer, struct gameState* state) {
 	state->numBuys++; //increase the number of buys for the current player
 	if ( choice == TRUE ){
 		int p = 0;
@@ -50,7 +58,13 @@ int playBaron(struct gameState* state, int choice, int currentPlayer) {
 
 	return 0;
 }
- 
+
+/* ---------------------------------------------------------------------
+ * Checks if a given card exists in a target player's hand. If a card
+ * is found, the array position of the card is returned. If no such
+ * card is found, `-1` is returned to indicate failure.
+ * ---------------------------------------------------------------------
+ */
 int cardInHand(enum CARD targetCard, struct gameState *state, int currentPlayer) {
 	for(int pos = 0; pos < state->handCount[currentPlayer]; pos++) {
 		if ( state->hand[currentPlayer][pos] == targetCard ) {
@@ -61,6 +75,15 @@ int cardInHand(enum CARD targetCard, struct gameState *state, int currentPlayer)
 	return -1;
 }
 
+/* ---------------------------------------------------------------------
+ * Plays the Tribute card and updates the game state appropiately.
+ * Accepts arguments for the current player, the next player, and a
+ * pointer to the game state. Returns 0 on success.
+ * 
+ * NOTE: nextPlayer must be safely calculated beforehand. Simply passing
+ * `currentPlayer + 1` may cause the array to go out of bounds.
+ * ---------------------------------------------------------------------
+ */
 int playTribute(int currentPlayer, int nextPlayer, struct gameState *state) {
 	//Create array to store the cards revealed by the next player:
 	int tributeRevealedCards[2] = {-1, -1};
@@ -132,6 +155,14 @@ int playTribute(int currentPlayer, int nextPlayer, struct gameState *state) {
 
 }
 
+/* ---------------------------------------------------------------------
+ * Plays the Ambassador card and updates the game state appropiately.
+ * Takes arguments for the hand  position of the played Ambassador card,
+ * the current player, what type of card the player wants to discard,
+ * the quantity of copies the player wants to discard, and pointer to
+ * the game state. Returns 0 on success.
+ * ---------------------------------------------------------------------
+ */
 int playAmbassador(int handPos, int currentPlayer, int cardToDiscard, int quantityToDiscard, struct gameState* state) {
         int copies = 0;		//used to check if player has enough cards to discard
 
@@ -187,4 +218,8 @@ int playAmbassador(int handPos, int currentPlayer, int cardToDiscard, int quanti
 
         return 0;
 
+}
+
+int playMinion() {
+    
 }
