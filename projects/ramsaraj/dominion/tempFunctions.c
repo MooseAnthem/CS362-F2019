@@ -2,8 +2,7 @@
 #include "dominion_helpers.h"
 #include "interface.h"
 
-int playBaron(struct gameState* state, int choice, int currentPlayer)
-{
+int playBaron(struct gameState* state, int choice, int currentPlayer) {
 	state->numBuys++; //increase the number of buys for the current player
 	if ( choice == TRUE ){
 		int p = 0;
@@ -52,7 +51,6 @@ int playBaron(struct gameState* state, int choice, int currentPlayer)
 	return 0;
 }
  
-					
 int cardInHand(enum CARD targetCard, struct gameState *state, int currentPlayer) {
 	for(int pos = 0; pos < state->handCount[currentPlayer]; pos++) {
 		if ( state->hand[currentPlayer][pos] == targetCard ) {
@@ -131,5 +129,62 @@ int playTribute(int currentPlayer, int nextPlayer, struct gameState *state) {
         }
 
     return 0;
+
+}
+
+int playAmbassador(int handPos, int currentPlayer, int cardToDiscard, int quantityToDiscard, struct gameState* state) {
+        int copies = 0;		//used to check if player has enough cards to discard
+
+        if ( quantityToDiscard > 2 || quantityToDiscard < 0 || cardToDiscard == handPos) 
+        {
+            return -1;
+        }
+
+        for (int i = 0; i < state->handCount[currentPlayer]; i++)
+        {
+            if (i != handPos && i == state->hand[currentPlayer][cardToDiscard] && i != cardToDiscard)
+            {
+                copies++;
+            }
+        }
+        if (copies < quantityToDiscard)
+        {
+            return -1;
+        }
+
+        if (DEBUG)
+            printf("Player %d reveals card number: %d\n", currentPlayer, state->hand[currentPlayer][cardToDiscard]);
+
+
+        //each other player gains a copy of revealed card
+        for (int i = 0; i < state->numPlayers; i++)
+        {
+            if (i != currentPlayer)
+            {
+                gainCard(state->hand[currentPlayer][cardToDiscard], state, 0, i);
+            }
+        }
+
+        //discard played card from hand
+        discardCard(handPos, currentPlayer, state, 0);
+		
+
+        //trash copies of cards returned to supply
+        for (int j = 0; j < quantityToDiscard; j++)
+        {
+            for (int i = 0; i < state->handCount[currentPlayer]; i++)
+            {
+                if (state->hand[currentPlayer][i] == state->hand[currentPlayer][cardToDiscard])
+                {
+                    discardCard(i, currentPlayer, state, 1);
+                    break;
+                }
+            }
+        }
+
+		//increase supply count for chosen card by amount being discarded
+        state->supplyCount[state->hand[currentPlayer][cardToDiscard]] += quantityToDiscard;
+
+        return 0;
 
 }
