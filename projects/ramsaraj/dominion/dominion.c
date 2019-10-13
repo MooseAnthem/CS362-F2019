@@ -1292,7 +1292,7 @@ int playTribute(int currentPlayer, int nextPlayer, struct gameState *state) {
 
 /* ---------------------------------------------------------------------
  * Plays the Ambassador card and updates the game state appropiately.
- * Takes arguments for the hand  position of the played Ambassador card,
+ * Takes arguments for the hand position of the played Ambassador card,
  * the current player, what type of card the player wants to discard,
  * the quantity of copies the player wants to discard, and pointer to
  * the game state. Returns 0 on success.
@@ -1355,6 +1355,16 @@ int playAmbassador(int handPos, int currentPlayer, int cardToDiscard, int quanti
 
 }
 
+/* ---------------------------------------------------------------------
+ * Plays a Minion card and updates the game state appropiately. Takes
+ * the position of the played Minion card, the current player, a bool
+ * int indicating whether the player wants to gain +2 gold, a bool int
+ * indicating whether the player wants to discard their hand and force
+ * discarding hands on other players with 5 or more cards, and a pointer
+ * to the game state. If `gainGold` is != 0, that option will be chosen
+ * regardless of the value of `discardCardOption`.
+ * ---------------------------------------------------------------------
+ */
 int playMinion(int handPos, int currentPlayer, int gainGoldOption, int discardOption, struct gameState *state) {
     
     //+1 action
@@ -1396,6 +1406,15 @@ int playMinion(int handPos, int currentPlayer, int gainGoldOption, int discardOp
     return 0;
 }
 
+/* ---------------------------------------------------------------------
+ * Plays a Mine card from the player's hand and updates the game state
+ * appropiately. Takes the current player, the position of the played
+ * Mine card, the position of the chosen treasure card, the position value
+ * of the desired card in the supply, and a pointer to the game state.
+ * Checks that all the player's choices were valid, returning -1 if any
+ * were not.
+ * ---------------------------------------------------------------------
+ */
 int playMine(int currentPlayer, int handPos, int treasureCard /*was choice1*/, int desiredCard /*was choice2*/, struct gameState *state) {
     
     int cardToTrash = state->hand[currentPlayer][treasureCard];  //store card we will trash
