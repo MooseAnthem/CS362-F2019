@@ -128,4 +128,35 @@ int getWinners(int players[MAX_PLAYERS], struct gameState *state);
 /* Set array position of each player who won (remember ties!) to
    1, others to 0 */
 
+int playBaron(int choice, int currentPlayer, struct gameState* state);
+/* Plays a Baron card from the player's hand. Checks that the play
+   is valid, and either discards an Estate for +4 coin or gains the
+   player and Estate. */
+
+int cardInHand(enum CARD targetCard, struct gameState *state, int currentPlayer);
+/* Accepts a card value and searches the player's hand for a match. If found,
+   returns the array position of that card. If no type of that card exists,
+   returns -1. */
+
+int playTribute(int currentPlayer, int nextPlayer, struct gameState *state);
+/* Plays a Tribute card from a player's hand. Checks that the play is valid
+   and then give the player bonuses depending on the next player's top 2 cards. */
+
+int playAmbassador(int handPos, int currentPlayer, int cardToDiscard, int quantityToDiscard, struct gameState* state);
+/* Plays an Ambassador card from the player's hand. Checks that play is valid,
+   allows the player to return copies of a revealed card back to the supply pile,
+   and then gives all other players one of that type from the supply. */
+
+int playMinion(int handPos, int currentPlayer, int gainGoldOption, int discardOption, struct gameState *state);
+/* Plays a Minion card from the player's hand. Checks that the play
+   is valid, discards the hand of the player and all other players
+   possessing 5 or more cards in their hands, and draws 4 cards for
+   affected players. */
+
+int playMine(int currentPlayer, int handPos, int treasureCard /*was choice1*/, int desiredCard /*was choice2*/, struct gameState *state);
+/* Plays a Mine from the player's hand. Checks if the play is valid, trashes a selected
+   treasure card from the player's hand, and gains the player a card worth up to +3 than
+   trashed card.
+*/
+
 #endif
