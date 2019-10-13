@@ -136,6 +136,8 @@ int playTribute(int currentPlayer, int nextPlayer, struct gameState *state);
 
 int playAmbassador(int handPos, int currentPlayer, int cardToDiscard, int quantityToDiscard, struct gameState* state);
 
-int playAmbassador(int handPos, int currentPlayer, int cardToDiscard, int quantityToDiscard, struct gameState* state);
+int playMinion(int handPos, int currentPlayer, int gainGoldOption, int discardOption, struct gameState *state);
+
+int playMine(int currentPlayer, int handPos, int treasureCard /*was choice1*/, int desiredCard /*was choice2*/, struct gameState *state);
 
 #endif
