@@ -220,6 +220,84 @@ int playAmbassador(int handPos, int currentPlayer, int cardToDiscard, int quanti
 
 }
 
-int playMinion() {
+int playMinion(int handPos, int currentPlayer, int gainGoldOption, int discardOption, struct gameState *state) {
     
+    //+1 action
+    state->numActions++;
+
+    //discard card from hand
+    discardCard(handPos, currentPlayer, state, 0);
+    
+    if (gainGoldOption)
+    {
+        state->coins = state->coins + 2;
+    }
+    else if (discardOption)		//discard hand, redraw 4, other players with 5+ cards discard hand and draw 4
+    {
+
+        //discard current player's hand and the hand of any player with 5 or more cards:
+        for (int i = 0; i < state->numPlayers; i++)
+        {
+                //when the current player is reached, short-circuit
+			    //evaluation automatically discards their hand now:
+                if ( i == currentPlayer || state->handCount[i] > 4 )
+                {
+                    //discard hand
+                    while( state->handCount[i] > 0 )
+                    {
+                        discardCard(handPos, i, state, 0);
+                    }
+
+                    //draw 4
+                    for (int j = 0; j < 4; j++)
+                    {
+                        drawCard(i, state);
+                    }
+                }
+        }
+
+    }
+
+    return 0;
+}
+
+int playMine(int currentPlayer, int handPos, int treasureCard /*was choice1*/, int desiredCard /*was choice2*/, struct gameState *state) {
+    
+    int cardToTrash = state->hand[currentPlayer][treasureCard];  //store card we will trash
+
+    if (state->hand[currentPlayer][treasureCard] < copper || state->hand[currentPlayer][treasureCard] > gold)
+    {
+        return -1;
+    }
+
+    if (desiredCard > treasure_map || desiredCard < curse)
+    {
+        return -1;
+    }
+
+    if ( (getCost(state->hand[currentPlayer][treasureCard]) + 3) > getCost(desiredCard) )
+    {
+        return -1;
+    }
+
+    gainCard(desiredCard, state, 2, currentPlayer);
+
+    //discard Mine from hand
+    discardCard(handPos, currentPlayer, state, 0);
+
+    /* 
+    ---Old method for discarding the chosen treasure card, replaced below. Keeping for debugging purposes.---
+    for (int i = 0; i < state->handCount[currentPlayer]; i++)
+    {
+        if (state->hand[currentPlayer][i] == cardToTrash) {
+                discardCard(i, currentPlayer, state, 0);
+                break;
+        }
+    }
+    */
+
+    discardCard(cardInHand(cardToTrash, state, currentPlayer), currentPlayer, state, 0);
+
+    return 0;
+
 }
