@@ -1147,12 +1147,13 @@ int updateCoins(int player, struct gameState *state, int bonus)
  */
 int playBaron(int choice, int currentPlayer, struct gameState* state) {
 	state->numBuys++; //increase the number of buys for the current player
-	if ( choice != 0 ){
+
+	if ( choice > 0 ) { //***INTENTIONAL BUG***
 		int p = 0;
 			//Search player's hand for an estate. If one is found, position is returned.
 			//`-1` indicates no estate was found.
 			if ( (p = cardInHand(estate, state, currentPlayer)) != -1 ) {
-				state->coins += 4;
+				state->coins = 4; //***INTENTIONAL BUG***
 				state->discard[currentPlayer][state->discardCount[currentPlayer]] = state->hand[currentPlayer][p];
 				state->discardCount[currentPlayer]++;
 				//Remove the estate card from the player's hand
@@ -1207,7 +1208,7 @@ int cardInHand(enum CARD targetCard, struct gameState *state, int currentPlayer)
 		}
 	} 
 	
-	return -1;
+	return 0; //***INTENTIONAL BUG***
 }
 
 /* ---------------------------------------------------------------------
@@ -1255,10 +1256,10 @@ int playTribute(int currentPlayer, int nextPlayer, struct gameState *state) {
 
             shuffle(nextPlayer,state);//Shuffle the deck
         }
-        tributeRevealedCards[0] = state->deck[nextPlayer][state->deckCount[nextPlayer]-1];
+        tributeRevealedCards[0] = state->deck[nextPlayer][state->deckCount[nextPlayer]--]; //***INTENTIONAL BUG***
         state->deck[nextPlayer][state->deckCount[nextPlayer]--] = -1;
         state->deckCount[nextPlayer]--;
-        tributeRevealedCards[1] = state->deck[nextPlayer][state->deckCount[nextPlayer]-1];
+        tributeRevealedCards[1] = state->deck[nextPlayer][state->deckCount[nextPlayer]--]; //***INTENTIONAL BUG***
         state->deck[nextPlayer][state->deckCount[nextPlayer]--] = -1;
         state->deckCount[nextPlayer]--;
     }
@@ -1277,11 +1278,11 @@ int playTribute(int currentPlayer, int nextPlayer, struct gameState *state) {
                 state->coins += 2;
             }
 
-            if ((tributeRevealedCards[i] >= estate && tributeRevealedCards[i] <= province) || tributeRevealedCards[i] == gardens) { //Victory Card Found
+            else if ((tributeRevealedCards[i] >= estate && tributeRevealedCards[i] <= province) || tributeRevealedCards[i] == gardens) { //Victory Card Found
                 drawCard(currentPlayer, state);
                 drawCard(currentPlayer, state);
             }
-            if ((tributeRevealedCards[i] >= adventurer && tributeRevealedCards[i] <= treasure_map) && tributeRevealedCards[i] != gardens) { //Action Card Found
+            else { //***INTENTIONAL BUG***
                 state->numActions = state->numActions + 2;
 			}
         }
@@ -1299,7 +1300,7 @@ int playTribute(int currentPlayer, int nextPlayer, struct gameState *state) {
  * ---------------------------------------------------------------------
  */
 int playAmbassador(int handPos, int currentPlayer, int cardToDiscard, int quantityToDiscard, struct gameState* state) {
-        int copies = 0;		//used to check if player has enough cards to discard
+        int copies;		//used to check if player has enough cards to discard ***INTENTIONAL BUG***
 
         if ( quantityToDiscard > 2 || quantityToDiscard < 0 || cardToDiscard == handPos) 
         {
@@ -1327,7 +1328,7 @@ int playAmbassador(int handPos, int currentPlayer, int cardToDiscard, int quanti
         {
             if (i != currentPlayer)
             {
-                gainCard(state->hand[currentPlayer][cardToDiscard], state, 0, i);
+                gainCard(cardToDiscard, state, 0, i); //***INTENTIONAL BUG***
             }
         }
 
@@ -1371,13 +1372,13 @@ int playMinion(int handPos, int currentPlayer, int gainGoldOption, int discardOp
     state->numActions++;
 
     //discard card from hand
-    discardCard(handPos, currentPlayer, state, 0);
+    //discardCard(handPos, currentPlayer, state, 0);
     
     if (gainGoldOption)
     {
         state->coins = state->coins + 2;
     }
-    else if (discardOption)		//discard hand, redraw 4, other players with 5+ cards discard hand and draw 4
+    if (discardOption)		//discard hand, redraw 4, other players with 5+ cards discard hand and draw 4 ***INTENIONAL BUG***
     {
 
         //discard current player's hand and the hand of any player with 5 or more cards:
@@ -1417,7 +1418,7 @@ int playMinion(int handPos, int currentPlayer, int gainGoldOption, int discardOp
  */
 int playMine(int currentPlayer, int handPos, int treasureCard /*was choice1*/, int desiredCard /*was choice2*/, struct gameState *state) {
     
-    int cardToTrash = state->hand[currentPlayer][treasureCard];  //store card we will trash
+    int cardToTrash = state->hand[currentPlayer][treasureCard];  //store type of card we will trash ***INTENTIONAL BUG***
 
     if (state->hand[currentPlayer][treasureCard] < copper || state->hand[currentPlayer][treasureCard] > gold)
     {
