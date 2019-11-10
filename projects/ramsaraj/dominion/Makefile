@@ -1,5 +1,6 @@
 CFLAGS= -Wall -fpic -coverage -lm -std=c99
 
+
 rngs.o: rngs.h rngs.c
 	gcc -c rngs.c -g  $(CFLAGS)
 
@@ -27,5 +28,36 @@ player: player.c interface.o
 
 all: playdom player 
 
+unittestresults: unittest1
+	./unittest1 >> results.out
+	gcov -b unittest1.c >> results.out
+
+unittest1: unittest1.o customAssert.o dominion.o rngs.o
+	gcc -o unittest1 unittest1.o customAssert.o dominion.o rngs.o -g $(CFLAGS)
+
+unittest2: unittest2.o customAssert.o dominion.o rngs.o
+	gcc -o unittest2 unittest2.o customAssert.o dominion.o rngs.o -g $(CFLAGS)
+
+unittest3: unittest3.o customAssert.o dominion.o rngs.o
+	gcc -o unittest3 unittest3.o customAssert.o dominion.o rngs.o -g $(CFLAGS)
+
+unittest4: unittest4.o customAssert.o dominion.o rngs.o
+	gcc -o unittest4 unittest4.o customAssert.o dominion.o rngs.o -g $(CFLAGS)
+
+customAssert.o: customAssert.h customAssert.c
+	gcc -c customAssert.c -g $(CFLAGS)
+
+unittest1.o:
+	gcc -c unittest1.c -g $(CFLAGS)
+
+unittest2.o:
+	gcc -c unittest2.c -g $(CFLAGS)
+
+unittest3.o:
+	gcc -c unittest3.c -g $(CFLAGS)
+
+unittest4.o:
+	gcc -c unittest4.c -g $(CFLAGS)
+
 clean:
-	rm -f *.o playdom.exe playdom player player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe
+	rm -f *.o playdom.exe playdom player player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe unittest1 unittest2

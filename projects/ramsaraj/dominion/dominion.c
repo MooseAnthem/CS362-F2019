@@ -1208,7 +1208,7 @@ int cardInHand(enum CARD targetCard, struct gameState *state, int currentPlayer)
 		}
 	} 
 	
-	return 0; //***INTENTIONAL BUG***
+	return -1;
 }
 
 /* ---------------------------------------------------------------------
@@ -1248,6 +1248,7 @@ int playTribute(int currentPlayer, int nextPlayer, struct gameState *state) {
 		//Check if deck is empty and if so, add 
         if (state->deckCount[nextPlayer] == 0) {
             for (int i = 0; i < state->discardCount[nextPlayer]; i++) {
+                printf("%d", state->discardCount[nextPlayer]);
                 state->deck[nextPlayer][i] = state->discard[nextPlayer][i];//Move to deck
                 state->deckCount[nextPlayer]++;
                 state->discard[nextPlayer][i] = -1;
@@ -1256,12 +1257,15 @@ int playTribute(int currentPlayer, int nextPlayer, struct gameState *state) {
 
             shuffle(nextPlayer,state);//Shuffle the deck
         }
+        printf("Card 0: %d\n", state->deck[nextPlayer][state->deckCount[nextPlayer]]);
         tributeRevealedCards[0] = state->deck[nextPlayer][state->deckCount[nextPlayer]--]; //***INTENTIONAL BUG***
         state->deck[nextPlayer][state->deckCount[nextPlayer]--] = -1;
         state->deckCount[nextPlayer]--;
         tributeRevealedCards[1] = state->deck[nextPlayer][state->deckCount[nextPlayer]--]; //***INTENTIONAL BUG***
         state->deck[nextPlayer][state->deckCount[nextPlayer]--] = -1;
         state->deckCount[nextPlayer]--;
+        printf("Revealed Card 0: %d\n", tributeRevealedCards[0]);
+        printf("Revealed Card 1: %d\n", tributeRevealedCards[1]);
     }
 
 	//Check if the two cards revealed are duplicates:
@@ -1310,15 +1314,16 @@ int playAmbassador(int handPos, int currentPlayer, int cardToDiscard, int quanti
         for (int i = 0; i < state->handCount[currentPlayer]; i++)
         {
             if (i != handPos && i == state->hand[currentPlayer][cardToDiscard] && i != cardToDiscard)
-            {
+            {   
                 copies++;
             }
         }
+
         if (copies < quantityToDiscard)
         {
             return -1;
         }
-
+        printf("COPIES = %d\n", copies);
         if (DEBUG)
             printf("Player %d reveals card number: %d\n", currentPlayer, state->hand[currentPlayer][cardToDiscard]);
 
@@ -1372,13 +1377,13 @@ int playMinion(int handPos, int currentPlayer, int gainGoldOption, int discardOp
     state->numActions++;
 
     //discard card from hand
-    //discardCard(handPos, currentPlayer, state, 0);
+    //discardCard(handPos, currentPlayer, state, 0); //***INTENTIONAL BUG***
     
     if (gainGoldOption)
     {
         state->coins = state->coins + 2;
     }
-    if (discardOption)		//discard hand, redraw 4, other players with 5+ cards discard hand and draw 4 ***INTENIONAL BUG***
+    if (discardOption)		//discard hand, redraw 4, other players with 5+ cards discard hand and draw 4 ***INTENTIONAL BUG***
     {
 
         //discard current player's hand and the hand of any player with 5 or more cards:
@@ -1418,7 +1423,8 @@ int playMinion(int handPos, int currentPlayer, int gainGoldOption, int discardOp
  */
 int playMine(int currentPlayer, int handPos, int treasureCard /*was choice1*/, int desiredCard /*was choice2*/, struct gameState *state) {
     
-    int cardToTrash = state->hand[currentPlayer][treasureCard];  //store type of card we will trash ***INTENTIONAL BUG***
+    //int cardToTrash = state->hand[currentPlayer][treasureCard];  //store type of card we will trash ***INTENTIONAL BUG***
+    int cardToTrash = treasureCard;
 
     if (state->hand[currentPlayer][treasureCard] < copper || state->hand[currentPlayer][treasureCard] > gold)
     {
@@ -1429,19 +1435,20 @@ int playMine(int currentPlayer, int handPos, int treasureCard /*was choice1*/, i
     {
         return -1;
     }
-
+    
     if ( (getCost(state->hand[currentPlayer][treasureCard]) + 3) > getCost(desiredCard) )
     {
         return -1;
     }
+    
 
     gainCard(desiredCard, state, 2, currentPlayer);
 
     //discard Mine from hand
     discardCard(handPos, currentPlayer, state, 0);
 
-    /* 
-    ---Old method for discarding the chosen treasure card, replaced below. Keeping for debugging purposes.---
+    
+    /*---Old method for discarding the chosen treasure card, replaced below. Keeping for debugging purposes.---
     for (int i = 0; i < state->handCount[currentPlayer]; i++)
     {
         if (state->hand[currentPlayer][i] == cardToTrash) {
@@ -1450,6 +1457,7 @@ int playMine(int currentPlayer, int handPos, int treasureCard /*was choice1*/, i
         }
     }
     */
+    
 
     discardCard(cardInHand(cardToTrash, state, currentPlayer), currentPlayer, state, 0);
 
