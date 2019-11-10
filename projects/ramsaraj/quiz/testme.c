@@ -17,7 +17,7 @@ char *inputString()
     //This small string is primarily a viability test. I should come and make this more
     //robust before turning it in!
 
-    int strLength = 100;
+    int strLength = 6;
     char* randomStr = malloc(sizeof(char) * strLength);
     
     for(int i = 0; i <= strLength - 1; i++) {
