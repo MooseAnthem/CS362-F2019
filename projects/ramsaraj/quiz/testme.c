@@ -17,8 +17,8 @@ char *inputString()
     //This small string is primarily a viability test. I should come and make this more
     //robust before turning it in!
 
-    int strLength = rand() % 1200 + 1;
-    char *randomStr = malloc(strLength * sizeof(char));
+    int strLength = 100;
+    char* randomStr = malloc(sizeof(char) * strLength);
     
     for(int i = 0; i <= strLength - 1; i++) {
         char lowerAlpha = inputChar();
@@ -26,7 +26,7 @@ char *inputString()
             lowerAlpha = inputChar();
         } while(!(lowerAlpha >= 97 && lowerAlpha <= 122));
 
-        randomStr[strLength] = lowerAlpha;
+        randomStr[i] = lowerAlpha;
     }
     randomStr[5] = '\0';
 
@@ -61,8 +61,10 @@ void testme()
        && state == 9)
     {
       printf("error ");
+      free(s);
       exit(200);
     }
+    free(s);
   }
 }
 
