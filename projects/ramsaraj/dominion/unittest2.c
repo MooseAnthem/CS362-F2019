@@ -35,7 +35,7 @@ int main() {
     customAssert("Player 0 handcount unchanged:",               G.handCount[0] == P.handCount[0]);
     customAssert("Player 1 deck decremented correctly (-2):",   (G.deckCount[1] - 2) == P.deckCount[1]);
     customAssert("Player 1 discarded 2 cards:",                 G.discard[1] == (P.discard[1] + 2) );
-    customAssert("Player 1 discarded Copper and Silver:",       ( G.discard[1][0] == province && G.discard[1][1] == estate ) );
+    customAssert("Player 1 discarded Copper and Silver:",       ( G.discard[1][0] == copper && G.discard[1][1] == silver ) );
     customAssert("Player 1 revealed cards set to -1 in deck:",  ( G.deck[1][3] == -1 && G.deck[1][4] == -1) );
     customAssert("Player 1 handCount unchanged:",               P.handCount[1] == G.handCount[1]);
 
@@ -89,7 +89,7 @@ int main() {
     customAssert("Player 1 handCount unchanged:",               P.handCount[1] == G.handCount[1]);
 
 
-    printf("\n~~~Fourth Test: Player 1 has empty deck, and but discard pile > 2~~~\n");
+    printf("\n~~~Fourth Test: Player 1 has empty deck, but discard pile > 2~~~\n");
     memset(&G, 0, sizeof(struct gameState));
     initializeGame(2, k, 123, &G);
     int player0Hand_4[5] = {estate, estate, estate, estate, tribute};

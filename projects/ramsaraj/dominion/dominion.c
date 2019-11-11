@@ -1257,15 +1257,14 @@ int playTribute(int currentPlayer, int nextPlayer, struct gameState *state) {
 
             shuffle(nextPlayer,state);//Shuffle the deck
         }
-        printf("Card 0: %d\n", state->deck[nextPlayer][state->deckCount[nextPlayer]]);
+        
         tributeRevealedCards[0] = state->deck[nextPlayer][state->deckCount[nextPlayer]--]; //***INTENTIONAL BUG***
         state->deck[nextPlayer][state->deckCount[nextPlayer]--] = -1;
         state->deckCount[nextPlayer]--;
         tributeRevealedCards[1] = state->deck[nextPlayer][state->deckCount[nextPlayer]--]; //***INTENTIONAL BUG***
         state->deck[nextPlayer][state->deckCount[nextPlayer]--] = -1;
         state->deckCount[nextPlayer]--;
-        printf("Revealed Card 0: %d\n", tributeRevealedCards[0]);
-        printf("Revealed Card 1: %d\n", tributeRevealedCards[1]);
+
     }
 
 	//Check if the two cards revealed are duplicates:
