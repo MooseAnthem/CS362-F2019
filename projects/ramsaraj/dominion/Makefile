@@ -26,13 +26,13 @@ player: player.c interface.o
 	gcc -o player player.c -g  dominion.o rngs.o interface.o $(CFLAGS)
 
 randomtestcard1: randomtestcard1.c 
-	gcc -o randomtestcard1 randomtestcard1.c dominion.c rngs.c -g $(CFLAGS)
+	gcc -o randomtestcard1 randomtestcard1.c customAssert.c dominion.c rngs.c -g $(CFLAGS)
 
 randomtestcard2: randomtestcard2.c 
-	gcc -o randomtestcard2 randomtestcard2.c dominion.c rngs.c -g $(CFLAGS)
+	gcc -o randomtestcard2 randomtestcard2.c customAssert.c dominion.c rngs.c -g $(CFLAGS)
 
 randomtestcard3: randomtestcard3.c 
-	gcc -o randomtestcard3 randomtestcard3.c dominion.c rngs.c -g $(CFLAGS)
+	gcc -o randomtestcard3 randomtestcard3.c customAssert.c dominion.c rngs.c -g $(CFLAGS)
 
 randomtestresults: randomtestcard1 randomtestcard2 randomtestcard3
 	./randomtestcard1 100 >> randomtestresults.out
