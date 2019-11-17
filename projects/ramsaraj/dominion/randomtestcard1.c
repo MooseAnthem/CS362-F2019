@@ -21,6 +21,7 @@ int main(int argc, char* argv[]) {
     
 
     int kingdomCards[10] = {adventurer, tribute, ambassador, baron, minion, sea_hag, mine, cutpurse, council_room, salvager};  //Kingdom cards to use for the test.
+    int validCards[16] = {adventurer, tribute, ambassador, baron, minion, sea_hag, mine, cutpurse, council_room, salvager, estate, duchy, province, copper, silver, gold}; //Used to randomly distribute cards to players
 
     for (int i = 0; i < iterations; i++) {
         memset(&G, 0, sizeof(struct gameState));    //clear game state
@@ -30,15 +31,15 @@ int main(int argc, char* argv[]) {
         for (int player = 0; player < numPlayers; player++) {
             G.handCount[player] = (rand() % 20);
             for (int card = 0; card < G.handCount[player]; card++) {
-                G.hand[player][card] = (rand() % (treasure_map + 1));
+                G.hand[player][card] = validCards[(rand() % 16)];
             }
             G.deckCount[player] = (rand() % 20);
             for (int card = 0; card < G.deckCount[player]; card++) {
-                G.deck[player][card] = (rand() % (treasure_map + 1));
+                G.deck[player][card] = validCards[(rand() % 16)];
             }
             G.discardCount[player] = (rand() % 20);
             for (int card = 0; card < G.discardCount[player]; card++) {
-                G.discard[player][card] = (rand() % (treasure_map + 1));
+                G.discard[player][card] = validCards[(rand() % 16)];
             }
         }
 
@@ -84,9 +85,9 @@ int main(int argc, char* argv[]) {
         for (int k = 0; k < G.numPlayers; k++) {
             if (k != G.whoseTurn) {
                 char message[256];
-                sprintf(message, "\tPlayer %d's hand array corrupted (G.hand[%d][MAX_HAND]).", k, k);
+                sprintf(message, "\tPlayer %d's hand array corrupted (G.hand[%d][MAX_HAND])", k, k);
                 if(customAssert(message, memcmp(&(G.hand[k]), &(P.hand[k]), sizeof(int) * MAX_HAND) == 0)) {failed = TRUE;};
-                sprintf(message, "\tPlayer %d's handCount corrupted (G.handCount[%d]).", k, k);
+                sprintf(message, "\tPlayer %d's handCount corrupted (G.handCount[%d])", k, k);
                 if(customAssert(message, P.handCount[k] == G.handCount[k])) {failed = TRUE;};
             }
         }
@@ -96,9 +97,9 @@ int main(int argc, char* argv[]) {
         for (int k = 0; k < G.numPlayers; k++) {
             if (k != nextPlayer) {
                 char message[256];
-                sprintf(message, "\tPlayer %d's deck array corrupted (G.hand[%d][MAX_HAND]).", k, k);
+                sprintf(message, "\tPlayer %d's deck array corrupted (G.deck[%d][MAX_HAND])", k, k);
                 if(customAssert(message, memcmp(&(G.deck[k]), &(P.deck[k]), sizeof(int) * MAX_HAND) == 0)) {failed = TRUE;};
-                sprintf(message, "\tPlayer %d's deckCount corrupted (G.handCount[%d]).", k, k);
+                sprintf(message, "\tPlayer %d's deckCount corrupted (G.deckCount[%d])", k, k);
                 if(customAssert(message, P.deckCount[k] == G.deckCount[k])) {failed = TRUE;};
             }
         }
@@ -107,10 +108,10 @@ int main(int argc, char* argv[]) {
         for (int k = 0; k < G.numPlayers; k++) {
             if (k != nextPlayer && k != G.whoseTurn) {
                 char message[256];
-                sprintf(message, "\tPlayer %d's discard array corrupted (G.hand[%d][MAX_HAND]).", k, k);
+                sprintf(message, "\tPlayer %d's discard array corrupted (G.discard[%d][MAX_HAND])", k, k);
                 if(customAssert(message, memcmp(&(G.discard[k]), &(P.discard[k]), sizeof(int) * MAX_HAND) == 0)) {failed = TRUE;};
-                sprintf(message, "\tPlayer %d's discardCount corrupted (G.handCount[%d]).", k, k);
-                if(customAssert(message, P.deckCount[k] == G.deckCount[k])) {failed = TRUE;};
+                sprintf(message, "\tPlayer %d's discardCount corrupted (G.discardCount[%d])", k, k);
+                if(customAssert(message, P.discardCount[k] == G.discardCount[k])) {failed = TRUE;};
             }
         }
         if(failed == TRUE) {totalFailedTests++;}
