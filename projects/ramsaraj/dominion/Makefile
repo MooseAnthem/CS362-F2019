@@ -42,6 +42,8 @@ randomtestresults: randomtestcard1 randomtestcard2 randomtestcard3
 	./randomtestcard3 100 >> randomtestresults.out
 	echo "\n\n" >> randomtestresults.out
 	gcov -b -f dominion.c >> randomtestresults.out
+	echo "\n\n" >> randomtestresults.out
+	cat dominion.c.gcov >> randomtestresults.out
 
 all: playdom player 
 
