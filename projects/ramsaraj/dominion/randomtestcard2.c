@@ -26,6 +26,8 @@ int main(int argc, char* argv[]) {
     int kingdomCards[10] = {adventurer, tribute, ambassador, baron, minion, sea_hag, mine, cutpurse, council_room, salvager};  //Kingdom cards to use for the test.
     int validCards[16] = {adventurer, tribute, ambassador, baron, minion, sea_hag, mine, cutpurse, council_room, salvager, estate, duchy, province, copper, silver, gold}; //Used to randomly distribute cards to players
 
+    printf("********************************************************************************\n********************************************************************************\n\t\t\t\t\tBEGINNING RANDOM TEST OF BARON\n********************************************************************************\n********************************************************************************\n");
+
     for (int i = 0; i < iterations; i++) {
         memset(&G, 0, sizeof(struct gameState));    //clear game state
         numPlayers = (rand() % 3) + 2;
