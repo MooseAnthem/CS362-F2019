@@ -1176,7 +1176,7 @@ int playBaron(int choice, int currentPlayer, struct gameState* state) {
 					if (supplyCount(estate, state) == 0) {
 						isGameOver(state);
 					}
-				}
+				} 
 			}
 	}
 	//If player chose to gain an estate by providing `choice = 0`
@@ -1188,9 +1188,8 @@ int playBaron(int choice, int currentPlayer, struct gameState* state) {
 			if(supplyCount(estate, state) == 0) {
 				isGameOver(state);
 			}
-		}
-
-	}
+		} 	
+    }
 
 	return 0;
 }
@@ -1208,7 +1207,7 @@ int cardInHand(enum CARD targetCard, struct gameState *state, int currentPlayer)
 		}
 	} 
 	
-	return 0; //***INTENTIONAL BUG***
+	return -1; //***INTENTIONAL BUG***
 }
 
 /* ---------------------------------------------------------------------
@@ -1378,7 +1377,7 @@ int playMinion(int handPos, int currentPlayer, int gainGoldOption, int discardOp
     {
         state->coins = state->coins + 2;
     }
-    if (discardOption)		//discard hand, redraw 4, other players with 5+ cards discard hand and draw 4 ***INTENIONAL BUG***
+    if (discardOption)		//discard hand, redraw 4, other players with 5+ cards discard hand and draw 4 ***INTENTIONAL BUG***
     {
 
         //discard current player's hand and the hand of any player with 5 or more cards:

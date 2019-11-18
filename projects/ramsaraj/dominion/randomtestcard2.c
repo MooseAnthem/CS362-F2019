@@ -40,6 +40,7 @@ int main(int argc, char* argv[]) {
         //If WANTS_GOLD is TRUE, make the input given to the function either positive
         //  or negative (TO BE ADDED):
 
+        //Randomize player's hands, decks, and discard piles:
         for (int player = 0; player < numPlayers; player++) {
             G.handCount[player] = (rand() % 20);
             for (int card = 0; card < G.handCount[player]; card++) {
@@ -78,12 +79,8 @@ int main(int argc, char* argv[]) {
             G.supplyCount[province] = rand() % 13;
         }
 
-        //randomize current player:
+        //set current player:
         G.whoseTurn = currentPlayer;
-        int nextPlayer = G.whoseTurn + 1;
-        if (nextPlayer > (G.numPlayers - 1)) {
-            nextPlayer = 0;
-        }
 
         //If HAS_ESTATE is false, remove all estates from the player's hand:
         if (HAS_ESTATE == FALSE) {
