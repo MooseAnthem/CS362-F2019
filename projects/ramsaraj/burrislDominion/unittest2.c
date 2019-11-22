@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "dominion.h"
+#include "dominion_helpers.h"
 #include "customAssert.h"
 
 int main() {
@@ -10,6 +11,8 @@ int main() {
 
     struct gameState G; //The gamestate operated on
     struct gameState P; //A "snapshot" of the gamestate before the test, used to compare state
+    int tributeRevealedCards[2] = {-1, -1};
+    int found;
 
     printf("*****Beginning playTribute() Testing*****\n");
 
@@ -23,15 +26,22 @@ int main() {
         G.deck[1][i] = player1Deck_1[i];
     }
     G.handCount[0] = G.deckCount[1] = 5;
+    tributeRevealedCards[0] = tributeRevealedCards [1] = -1;
     P = G;  //save state
 
-    playTribute(0, 1, &G);
+    doTribute(0, 1, tributeRevealedCards, 0, 0, &G, 0);
     
 
     customAssert("coins incremented correctly (+4):",           G.coins == (P.coins + 4));
     customAssert("numBuys unchanged:",                          G.numBuys == P.numBuys);
     customAssert("numActions unchanged:",                       G.numActions == P.numActions);
-    customAssert("Player 0 discarded Tribute:",                 cardInHand(tribute, &G, 0) == -1);
+    found = 0;
+    for (int i = 0; i < G.handCount[0]; i++) {
+        if (G.hand[0][i] == tribute) {
+            found = 1;
+        }
+    }
+    customAssert("Player 0 discarded Tribute:",                 found == 0);
     customAssert("Player 0 handcount unchanged:",               G.handCount[0] == P.handCount[0]);
     customAssert("Player 1 deck decremented correctly (-2):",   (G.deckCount[1] - 2) == P.deckCount[1]);
     customAssert("Player 1 discarded 2 cards:",                 G.discard[1] == (P.discard[1] + 2) );
@@ -50,14 +60,20 @@ int main() {
         G.deck[1][i] = player1Deck_2[i];
     }
     G.handCount[0] = G.deckCount[1] = 5;
+    tributeRevealedCards[0] = tributeRevealedCards [1] = -1;
     P = G;  //save state
     
-    playTribute(0, 1, &G);
+    doTribute(0, 1, tributeRevealedCards, 0, 0, &G, 0);
 
     customAssert("coins incremented correctly (+2):",           G.coins == (P.coins + 2));
     customAssert("numBuys unchanged:",                          G.numBuys == P.numBuys);
     customAssert("numActions unchanged:",                       G.numActions == P.numActions);
-    customAssert("Player 0 discarded Tribute:",                 cardInHand(tribute, &G, 0) == -1);
+    for (int i = 0; i < G.handCount[0]; i++) {
+        if (G.hand[0][i] == tribute) {
+            found = 1;
+        }
+    }
+    customAssert("Player 0 discarded Tribute:",                 found == 0);
     customAssert("Player 0 handcount unchanged:",               G.handCount[0] == P.handCount[0]);
     customAssert("Player 1 deck decremented correctly (-2):",   (G.deckCount[1] - 2) == P.deckCount[1]);
     customAssert("Player 1 discarded 2 cards:",                 G.discard[1] == (P.discard[1] + 2) );
@@ -74,15 +90,21 @@ int main() {
         G.hand[0][i] = player0Hand_3[i];
     }
     G.handCount[0] = 5;
-    G.deckCount[1] = G.discardCount[1] = 0; 
+    G.deckCount[1] = G.discardCount[1] = 0;
+    tributeRevealedCards[0] = tributeRevealedCards [1] = -1;
     P = G;  //save state
     
-    playTribute(0, 1, &G);
+    doTribute(0, 1, tributeRevealedCards, 0, 0, &G, 0);
 
     customAssert("coins unchanged:",                            G.coins == P.coins);
     customAssert("numBuys unchanged:",                          G.numBuys == P.numBuys);
     customAssert("numActions unchanged:",                       G.numActions == P.numActions);
-    customAssert("Player 0 discarded Tribute:",                 cardInHand(tribute, &G, 0) == -1);
+    for (int i = 0; i < G.handCount[0]; i++) {
+        if (G.hand[0][i] == tribute) {
+            found = 1;
+        }
+    }
+    customAssert("Player 0 discarded Tribute:",                 found == 0);
     customAssert("Player 0 handcount unchanged:",               G.handCount[0] == P.handCount[0]);
     customAssert("Player 1 deckCount unchanged:",               G.deckCount[1] == P.deckCount[1]);
     customAssert("Player 1 discardCount unchanged:",            G.discardCount[1] == P.discardCount[1]);
@@ -100,14 +122,20 @@ int main() {
     }
     G.handCount[0] = G.discardCount[1] = 5;
     G.deckCount[1] = 0;
+    tributeRevealedCards[0] = tributeRevealedCards [1] = -1;
     P = G;  //save state
     
-    playTribute(0, 1, &G);
+    doTribute(0, 1, tributeRevealedCards, 0, 0, &G, 0);
 
     customAssert("coins incremented correctly:",                G.coins == (P.coins + 2) );
     customAssert("numBuys unchanged:",                          G.numBuys == P.numBuys);
     customAssert("numActions unchanged:",                       G.numActions == P.numActions);
-    customAssert("Player 0 discarded Tribute:",                 cardInHand(tribute, &G, 0) == -1);
+    for (int i = 0; i < G.handCount[0]; i++) {
+        if (G.hand[0][i] == tribute) {
+            found = 1;
+        }
+    }
+    customAssert("Player 0 discarded Tribute:",                 found == 0);
     customAssert("Player 0 handcount unchanged:",               G.handCount[0] == P.handCount[0]);
     customAssert("Player 1 deckCount unchanged:",               G.deckCount[1] == P.deckCount[1]);
     customAssert("Player 1 discardCount now 0:",                G.discardCount[1] == 0);
@@ -126,15 +154,21 @@ int main() {
     G.handCount[0] = 5;
     G.deckCount[1] = 0;
     G.discardCount[1] = 1;
+    tributeRevealedCards[0] = tributeRevealedCards [1] = -1;
     P = G;  //save state
     printf("1 Handcount: %d\n", G.handCount[0]);
-    playTribute(0, 1, &G);
+    doTribute(0, 1, tributeRevealedCards, 0, 0, &G, 0);
     printf("1 Handcount: %d\n", G.handCount[0]);
 
     customAssert("coins unchanged:",                            G.coins == P.coins);
     customAssert("numBuys unchanged:",                          G.numBuys == P.numBuys);
     customAssert("numActions unchanged:",                       G.numActions == P.numActions);
-    customAssert("Player 0 discarded Tribute:",                 cardInHand(tribute, &G, 0) == -1);
+    for (int i = 0; i < G.handCount[0]; i++) {
+        if (G.hand[0][i] == tribute) {
+            found = 1;
+        }
+    }
+    customAssert("Player 0 discarded Tribute:",                 found == 0);
     customAssert("Player 0 handcount increased by 2:",          G.handCount[0] == (P.handCount[0] + 2));
     customAssert("Player 1 deckCount unchanged:",               G.deckCount[1] == P.deckCount[1]);
     customAssert("Player 1 discardCount unchanged:",            G.discardCount[1] == P.discardCount[1]);

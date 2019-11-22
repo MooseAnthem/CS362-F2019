@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "dominion.h"
+#include "dominion_helpers.h"
 #include "customAssert.h"
 
 int main() {
@@ -43,7 +44,7 @@ int main() {
     ambassadorPos = 0;
     cardToDiscardPos = 1;
     quantityToDiscard = 2;
-    success = playAmbassador(ambassadorPos, currentPlayer, cardToDiscardPos, quantityToDiscard, &G);
+    success = doAmbassador(currentPlayer, cardToDiscardPos, quantityToDiscard, &G, ambassadorPos);
 
     customAssert("Play allowed:", success == 0);
     customAssert("Handcount decreased by `1 + quantityToDiscard`", G.handCount[0] == (P.handCount[0] - (1 + quantityToDiscard)));
@@ -95,7 +96,7 @@ int main() {
     ambassadorPos = 0;
     cardToDiscardPos = 1;
     quantityToDiscard = 2;
-    success = playAmbassador(ambassadorPos, currentPlayer, cardToDiscardPos, quantityToDiscard, &G);
+    success = doAmbassador(currentPlayer, cardToDiscardPos, quantityToDiscard, &G, ambassadorPos);
 
     customAssert("Play allowed:", success == 0);
     customAssert("Handcount decreased by `1 + quantityToDiscard`", G.handCount[0] == (P.handCount[0] - (1 + quantityToDiscard)));
@@ -148,7 +149,7 @@ int main() {
     ambassadorPos = 0;
     cardToDiscardPos = 0;
     quantityToDiscard = 2;
-    success = playAmbassador(ambassadorPos, currentPlayer, cardToDiscardPos, quantityToDiscard, &G);
+    success = doAmbassador(currentPlayer, cardToDiscardPos, quantityToDiscard, &G, ambassadorPos);
 
     customAssert("Play allowed:", success == 0);
     customAssert("Handcount decreased by `1 + quantityToDiscard`", G.handCount[0] == (P.handCount[0] - (1 + quantityToDiscard)));
@@ -199,7 +200,7 @@ int main() {
     ambassadorPos = 0;
     cardToDiscardPos = 1;
     quantityToDiscard = 1;
-    success = playAmbassador(ambassadorPos, currentPlayer, cardToDiscardPos, quantityToDiscard, &G);
+    success = doAmbassador(currentPlayer, cardToDiscardPos, quantityToDiscard, &G, ambassadorPos);
 
     customAssert("Play allowed:", success == 0);
     customAssert("Handcount decreased by `1 + quantityToDiscard`", G.handCount[0] == (P.handCount[0] - (1 + quantityToDiscard)));

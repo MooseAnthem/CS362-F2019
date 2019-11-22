@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "dominion.h"
+#include "dominion_helpers.h"
 #include "customAssert.h"
 
 int main() {
@@ -44,7 +45,7 @@ int main() {
 
     P = G; // save game state
 
-    playMinion(minionCardPos, currentPlayer, 1, 0, &G);
+    doMinion(currentPlayer, 1, 0, &G, minionCardPos);
 
     customAssert("numActions incremented:", G.numActions == (P.numActions + 1) );
     customAssert("coins increased by 2:", G.coins == (P.coins + 2) );
@@ -93,7 +94,7 @@ int main() {
 
     P = G; // save game state
 
-    playMinion(minionCardPos, currentPlayer, 0, 1, &G);
+    doMinion(currentPlayer, 1, 0, &G, minionCardPos);
 
     customAssert("numActions incremented:", G.numActions == (P.numActions + 1) );
     customAssert("coins increased by 2:", G.coins == (P.coins + 2) );
@@ -142,7 +143,7 @@ int main() {
 
     P = G; // save game state
 
-    playMinion(minionCardPos, currentPlayer, 0, 0, &G);
+    doMinion(currentPlayer, 1, 0, &G, minionCardPos);
 
     customAssert("numActions incremented:", G.numActions == (P.numActions + 1) );
     customAssert("coins increased by 2:", G.coins == (P.coins + 2) );
@@ -191,7 +192,7 @@ int main() {
 
     P = G; // save game state
 
-    playMinion(minionCardPos, currentPlayer, 1, 1, &G);
+    doMinion(currentPlayer, 1, 0, &G, minionCardPos);
 
     customAssert("numActions incremented:", G.numActions == (P.numActions + 1) );
     customAssert("coins increased by 2:", G.coins == (P.coins + 2) );

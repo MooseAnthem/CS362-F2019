@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "dominion.h"
+#include "dominion_helpers.h"
 #include "customAssert.h"
 
 int main() {
