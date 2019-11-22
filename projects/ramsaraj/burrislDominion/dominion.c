@@ -1122,7 +1122,7 @@ void doMinion(int currentPlayer, int choice1, int choice2, struct gameState *sta
 }
 
 // Assignment 2 function
-void doAmbassador(int currentPlayer, int choice1, int choice2, struct gameState *state, int handPos)
+int doAmbassador(int currentPlayer, int choice1, int choice2, struct gameState *state, int handPos)
 {
     int j = 0;      //used to check if player has enough cards to discard
     if (choice2 > 3 || choice2 < 0) // Should be choice2 > 2 **BUG**
@@ -1232,7 +1232,7 @@ void doTribute(int currentPlayer, int nextPlayer, int *tributeRevealedCards, int
 }
 
 // Assignment 2 function
-void doMine(int currentPlayer, int choice1, int choice2, struct gameState *state, int handPos)
+int doMine(int currentPlayer, int choice1, int choice2, struct gameState *state, int handPos)
 {
     int trashCard = state->hand[currentPlayer][choice1];  //store card we will trash
     if (state->hand[currentPlayer][choice1] < copper || state->hand[currentPlayer][choice1] > gold)
