@@ -12,7 +12,7 @@ int cardEffect(int feast, int choice1, int choice2, int choice3, struct gameStat
 
 int main()
 {
-	int choice1 = 1;
+	int choice1 = 0;
 	int choice2 = 0;
 	int choice3 = 0;
 	int handpos = 0;
@@ -29,6 +29,9 @@ int main()
 	struct gameState testG;
 	//int currentPlayer = whoseTurn(&testG);
 
+	//G.handCount[player] = 1;
+        //G.hand[player][0] = 9;	
+
 	printf("Begin Testing Feast case:\n");
 
 	// set the state of your variables
@@ -38,28 +41,39 @@ int main()
 	G.handCount[player] = 1;
 	G.hand[player][0] = 9;	
 
-	//--------------------TEST--------------------------
+
+	//--------------------TEST 1: Cost of 5--------------------------
 	memcpy(&testG, &G, sizeof(struct gameState));
 
 	// call the refactored function
-	//choice1 = 7;  	
-for (int i = 0; i < testG.handCount[player]; i++)
-printf("Your hand is %d\n", testG.hand[player][i]);
-printf("choice1 cost: %d\n", getCost(choice1));
-
+	choice1 = 2;  	
 	cardEffect(feast, choice1, choice2, choice3, &testG, handpos, &bonus);
 	
-printf("Your first card cost is %d\n", getCost(testG.hand[player][0]));
-printf("Your second card cost is %d\n", getCost(testG.hand[player][1]));	
-
-	if (getCost(testG.hand[player][1]) > 5)
-		printf("You can buy cards worth more than 5 and you have found a mysterious bug in this function\n");
+	if (getCost(testG.discard[player][0]) <= 5)
+		printf("You can buy cards worth 5 or less and the bug, as noted, does not exist in this function\n");
 	else
+		printf("You CANNOT buy a card worth 5 and you found a mysterious bug in this function\n");
+
+/*        
+	//--------------------TEST 2: Cost of 6--------------------------
+        memcpy(&testG, &G, sizeof(struct gameState));
+        
+        // call the refactored function
+        choice1 = 6;
+for (int i = 0; i < testG.handCount[player]; i++){
+printf("Your hand is %d\n", testG.hand[player][i]);}
+printf("choice1 cost: %d\n", getCost(choice1));
+
+        cardEffect(feast, choice1, choice2, choice3, &testG, handpos, &bonus);
+        
+printf("Your playedcard cost is %d\n", getCost(testG.hand[player][0]));
+printf("Your discard card cost is %d\n", getCost(testG.discard[player][0]));
+        
+        if (getCost(testG.discard[player][0]) > 5)
+                printf("You can buy cards worth more than 5 and you found a mysterious bug in this function\n");
+        else
 		printf("You CANNOT buy a card worth more than 5 and there is no actual bug in this function\n");
-
-	for (int i = 0; i < testG.handCount[player]; i++)
-		printf("Your hand is %d\n", testG.hand[player][i]);
-
+*/
 
 	printf("Test completed!\n\n");
 	return 0;
