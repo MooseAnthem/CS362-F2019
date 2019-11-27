@@ -19,7 +19,7 @@ int main()
 	int bonus = 0;
 	int seed = 1000;
 	int player = 0;
-
+	 
 	// set your card array
 	int k[10] = { ambassador, council_room, feast, gardens, mine, minion, smithy, village, baron, great_hall };
 	//int k[1] = { feast };
@@ -40,41 +40,41 @@ int main()
 
 	G.handCount[player] = 1;
 	G.hand[player][0] = 9;	
-
+	//G.coins = 10;
 
 	//--------------------TEST 1: Cost of 5--------------------------
 	memcpy(&testG, &G, sizeof(struct gameState));
-
+	testG.coins = 0;
+	printf("You have %d coins to buy with\n", testG.coins);
+	printf("Testing a value of 5:\n");
 	// call the refactored function
 	choice1 = 2;  	
 	cardEffect(feast, choice1, choice2, choice3, &testG, handpos, &bonus);
 	
 	if (getCost(testG.discard[player][0]) <= 5)
-		printf("You can buy cards worth 5 or less and the bug, as noted, does not exist in this function\n");
+		printf("You can buy cards worth 5 or less even with no money.  There is no bug here\n");
 	else
 		printf("You CANNOT buy a card worth 5 and you found a mysterious bug in this function\n");
-
+	if (testG.coins == 0)
+		printf("Your coins correctly reset\n");
+	else	 
+		printf("Your coins did NOT reset and there is a bug\n");
 /*        
 	//--------------------TEST 2: Cost of 6--------------------------
         memcpy(&testG, &G, sizeof(struct gameState));
-        
+        testG.coins = 10;
+	printf("Testing a value of 6:\n");
         // call the refactored function
         choice1 = 6;
-for (int i = 0; i < testG.handCount[player]; i++){
-printf("Your hand is %d\n", testG.hand[player][i]);}
-printf("choice1 cost: %d\n", getCost(choice1));
-
+        printf("You have %d coins to use\n", testG.coins);
         cardEffect(feast, choice1, choice2, choice3, &testG, handpos, &bonus);
-        
-printf("Your playedcard cost is %d\n", getCost(testG.hand[player][0]));
-printf("Your discard card cost is %d\n", getCost(testG.discard[player][0]));
-        
+       //printf("You have %d coins to use\n", testG.coins); 
         if (getCost(testG.discard[player][0]) > 5)
                 printf("You can buy cards worth more than 5 and you found a mysterious bug in this function\n");
         else
-		printf("You CANNOT buy a card worth more than 5 and there is no actual bug in this function\n");
+		printf("You CANNOT buy a card worth more than 5 and ths function is now bug free\n");
+	printf("You still have %d coins to use\n", testG.coins);
 */
-
 	printf("Test completed!\n\n");
 	return 0;
 }
