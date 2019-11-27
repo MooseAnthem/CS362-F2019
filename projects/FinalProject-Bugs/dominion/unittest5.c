@@ -54,23 +54,12 @@ int main()
 
 	s = scoreFor(player, &testG);
 	if (s != 25)
-		printf("Your deck count is INcorrect\n");
+		printf("Your deck count is INcorrect because you have a bug\n");
 	else
-		printf("Your deck count is correct\n");
+		printf("Your deck count is now correct and you no longer have a bug\n");
 
 
-	//----------------------------------------------------------------------------
-	memcpy(&testG, &G, sizeof(struct gameState));
 
-	// call the refactored function again
-	
-
-	//--------------TEST:----------------------------------------- --------------- 
-	memcpy(&testG, &G, sizeof(struct gameState));
-
-	// call the refactored function again
-
-
-	printf("Test completed!\n");
+	printf("Test completed!\n\n");
 	return 0;
 }

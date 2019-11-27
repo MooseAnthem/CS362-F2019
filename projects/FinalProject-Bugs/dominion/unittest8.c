@@ -26,7 +26,7 @@ int main()
 	// declare the game state
 	struct gameState G;
 	struct gameState testG;
-	int c = G.coins;
+	//int c = G.coins;
 	//int b = G.bonus;
 
 	printf("Begin Testing Bonus coins:\n");
@@ -34,38 +34,40 @@ int main()
 	// set the state of your variables
 	memset(&G, 23, sizeof(struct gameState)); // set the game state
 	initializeGame(2, k, seed, &G); // initialize a new game
+	int c = G.coins;
 
 	//--------------------TEST 1: BARON--------------------------------
 	printf("Begin Testing Baron:\n");
 	memcpy(&testG, &G, sizeof(struct gameState));
-
 	// call the refactored function
-	cardEffect(baron, choice1, choice2, choice3, &testG, handpos, &bonus);
+	cardEffect(baron, 1, choice2, choice3, &testG, handpos, &bonus);
+
 	if (bonus == 0)
-		printf("You did NOT receive bonus coins\n");
+		printf("You did NOT receive bonus coins and you have a bug\n");
 	else
-		printf("You received bonus coins\n");
+		printf("You received bonus coins and are bug free\n");
 	
 	if (c < testG.coins)
 		printf("You received coins instead and your function has a bug\n\n");
 	else
-		printf("You correctly received no coins and your function is bug free\n\n");
+		printf("You correctly received no coins and your function is now bug free\n\n");
 
 	//--------------------TEST 2: MINION--------------------------------
 	printf("Begin Testing Minion\n");		
 	memcpy(&testG, &G, sizeof(struct gameState));
 
 	// call the refactored function again
-	cardEffect(minion, choice1, choice2, choice3, &testG, handpos, &bonus);
+	cardEffect(minion, 1, choice2, choice3, &testG, handpos, &bonus);
+
 	if (bonus == 0)                              
- 		printf("You did NOT receive bonus coins\n");
+ 		printf("You did NOT receive bonus coins and have a bug\n");
 	else                                              
- 		printf("You received bonus coins\n");
+ 		printf("You received bonus coins and are bug free\n");
  
 	if (c < testG.coins)                             
  		printf("You received coins instead and your function has a bug\n\n");    
 	else                                              
- 		printf("You correctly received no coins and your function is bug free\n\n");
+ 		printf("You correctly received no coins and your function is now bug free\n\n");
 
  	//--------------------TEST 3: Tribute-----------------------------------
 	printf("Begin Testing Tribute\n");		
@@ -82,7 +84,7 @@ int main()
 	if (c < testG.coins)                             
 		printf("You received coins instead and your function has a bug\n\n");    
 	else                                              
-		printf("You correctly received no coins and your function is bug free\n\n");
+		printf("You correctly received no coins and your function is now bug free\n\n");
 
 
  	//--------------------TEST 4: Embargo-----------------------------------
@@ -100,7 +102,7 @@ int main()
 	if (c < testG.coins)                             
 		printf("You received coins instead and your function has a bug\n\n");    
 	else                                              
-		printf("You correctly received no coins and your function is bug free\n\n");
+		printf("You correctly received no coins and your function is now bug free\n\n");
 
 
 	printf("Test completed!\n\n");
