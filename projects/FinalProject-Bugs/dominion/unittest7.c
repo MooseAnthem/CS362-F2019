@@ -34,22 +34,23 @@ int main()
 	memset(&G, 23, sizeof(struct gameState)); // set the game state
 	initializeGame(2, k, seed, &G); // initialize a new game
 
-	//--------------------TEST: Check if for loop is working-----------------
 	memcpy(&testG, &G, sizeof(struct gameState));
 	int currentPlayer = whoseTurn(&testG);
 	int a = testG.numActions;
-	//int c = testG.coins;
+	int c = testG.coins;
 	int h = testG.handCount[currentPlayer];
-	int b = bonus;
 
+	//--------------------TEST: Check if for loop is working---------
+	//memcpy(&testG, &G, sizeof(struct gameState));
+	
 	// call the Tribute function
 	cardEffect(tribute, choice1, choice2, choice3, &testG, handpos, &bonus);
         
-
-	if (((testG.numActions - a) + (bonus - b) + (testG.handCount[currentPlayer] - h)) == 4)
-		printf("Your Tribute loop is working correctly and is now bug free\n");
+	
+	if (((testG.numActions - a) + (testG.coins - c) + (testG.handCount[currentPlayer] - h)) == 4)
+		printf("Your Tribute loop is working correctly and your function is bug free\n");
 	else
-		printf("Your Tribute loop has FAILED becuase you have a bug\n"); 			
+		printf("Your Tribute loop has FAILED and your function has a bug \n"); 			
 
 
 

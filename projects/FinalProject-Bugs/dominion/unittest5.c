@@ -54,9 +54,9 @@ int main()
 
 	s = scoreFor(player, &testG);
 	if (s != 25)
-		printf("Your deck count is INcorrect because you have a bug\n");
+		printf("Your deck count is INcorrect and your function has a bug\n");
 	else
-		printf("Your deck count is now correct and you no longer have a bug\n");
+		printf("Your deck count is correct and your function is bug free\n");
 
 
 

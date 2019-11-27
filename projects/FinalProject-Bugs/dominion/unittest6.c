@@ -44,7 +44,7 @@ int main()
 
 	//--------------------TEST 1: Cost of 5--------------------------
 	memcpy(&testG, &G, sizeof(struct gameState));
-	testG.coins = 0;
+	testG.coins = 1;
 	printf("You have %d coins to buy with\n", testG.coins);
 	printf("Testing a value of 5:\n");
 	// call the refactored function
@@ -55,6 +55,7 @@ int main()
 		printf("You can buy cards worth 5 or less even with no money.  There is no bug here\n");
 	else
 		printf("You CANNOT buy a card worth 5 and you found a mysterious bug in this function\n");
+	printf("Your coin count is now %d\n",testG.coins);
 	if (testG.coins == 0)
 		printf("Your coins correctly reset\n");
 	else	 
