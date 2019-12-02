@@ -51,7 +51,7 @@ int main () {
 
     // More variables that need to be setup for tests
     //state.playedCardCount = 0;
-    //state.playedCards[0] = -1;
+    state.playedCards[0] = -1;
 
     // Print out test title
     printFormatted("UNITTEST1 - discardCard() in mine");
