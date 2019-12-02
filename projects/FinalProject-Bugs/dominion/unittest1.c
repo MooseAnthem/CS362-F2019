@@ -56,6 +56,8 @@ int main () {
     // Print out test title
     printFormatted("UNITTEST1 - discardCard() in mine");
 
+    printf("%d\n", state.playedCards[0]);
+
     // Call the function being tested
     // Signature: cardEffect(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus)
     cardEffect(mine, choice1, choice2, 0, &state, handPos, 0);
