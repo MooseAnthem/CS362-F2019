@@ -49,12 +49,9 @@ int main () {
     state.numPlayers = 2;
     state.hand[currentPlayer][0] = mine; // Set the card at position 0 to mine
 
-    // More variables that need to be setup for tests
-    //state.playedCardCount = 0;
-    state.playedCards[0] = -1;
-
     // Print out test title
     printFormatted("UNITTEST1 - discardCard() in mine");
+    printf("%d\n", state.playedCardCount);
 
     // Call the function being tested
     // Signature: cardEffect(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus)
@@ -62,8 +59,8 @@ int main () {
 
     // Do tests
     checkTrue(state.playedCardCount, 1, "Played Card Count Equals 1");
-    printf("%d\n", state.playedCards[0]);
     checkTrue(state.playedCards[0], silver, "Index 0 of the Played Cards Array is the Silver Card");
+    printf("%d\n", state.playedCardCount);
 
     return 0;
 }
