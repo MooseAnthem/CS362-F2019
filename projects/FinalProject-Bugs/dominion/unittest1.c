@@ -49,8 +49,8 @@ int main () {
     state.hand[currentPlayer][0] = mine; // Set the card at position 0 to mine
 
     // More variables that need to be setup for tests
-    state.playedCardCount = 0;
-    state.playedCards[0] = -1;
+    //state.playedCardCount = 0;
+    //state.playedCards[0] = -1;
 
     // Print out test title
     printFormatted("UNITTEST1 - discardCard() in mine");
