@@ -43,7 +43,7 @@ int main () {
     // Set the supply counts of 3 cards to 0
     state.supplyCount[adventurer] = 0;
     state.supplyCount[council_room] = 0;
-    state.supplyCount[sea_hag] = 0;
+    state.supplyCount[baron] = 0;
 
     // Print out test title
     printFormatted("UNITTEST4 - isGameOver iterates over all cards");
