@@ -59,8 +59,7 @@ int main () {
 
     // Do tests
     checkTrue(state.playedCardCount, 1, "Played Card Count Equals 1");
-    checkTrue(state.playedCards[0], silver, "Index 0 of the Played Cards Array is the Silver Card");
-    printf("%d\n", state.playedCardCount);
+    checkTrue(state.playedCards[state.playedCardCount - 1], mine, "Index 0 of the Played Cards Array is the Mine Card");
 
     return 0;
 }
