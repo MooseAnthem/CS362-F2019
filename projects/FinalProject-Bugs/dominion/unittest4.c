@@ -62,8 +62,7 @@ int main () {
     *********************** SUBTEST 2 ************************************
     *********************************************************************/
 
-    k = {adventurer, council_room, feast, gardens, sea_hag,
-        remodel, smithy, village, baron, great_hall};
+    k[4] = treasure_map; // Change sea_hag to treasure_map
 
     // Initialize the game struct
     memset(&state, 23, sizeof(struct gameState));
