@@ -401,7 +401,7 @@ int isGameOver(struct gameState *state) {
 
     //if three supply pile are at 0, the game ends
     j = 0;
-    for (i = 0; i < 27; i++) // This was 25, updating to 27 to correct
+    for (i = 0; i < 27; i++) // **BUG** This was 25, updating to 27 to correct
     {
         if (state->supplyCount[i] == 0)
         {
@@ -820,8 +820,8 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         {
             return -1;
         }
-
-        if ( (getCost(state->hand[currentPlayer][choice1]) + 3) > getCost(choice2) )
+        // **BUG** The below line incorrectly used to be "if ( getCost(state->hand[currentPlayer][choice1]) + 3) > getCost(choice) )""
+        if ( getCost(choice2) > (getCost(state->hand[currentPlayer][choice1]) + 3) ) // Updated to this
         {
             return -1;
         }
@@ -836,7 +836,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         {
             if (state->hand[currentPlayer][i] == j)
             {
-                discardCard(i, currentPlayer, state, 0);
+                discardCard(i, currentPlayer, state, 1); // **BUG** Last parameter was 0, updating to 1 to correct
                 break;
             }
         }
@@ -845,8 +845,8 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 
     case remodel:
         j = state->hand[currentPlayer][choice1];  //store card we will trash
-
-        if ( (getCost(state->hand[currentPlayer][choice1]) + 2) > getCost(choice2) )
+        // **BUG** The below line incorrectly used to be "if ( (getCost(state->hand[currentPlayer][choice1]) + 2) > getCost(choice2) )"
+        if ( getCost(choice2) > (getCost(state->hand[currentPlayer][choice1]) + 2) ) // Updated to this
         {
             return -1;
         }
@@ -861,7 +861,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         {
             if (state->hand[currentPlayer][i] == j)
             {
-                discardCard(i, currentPlayer, state, 0);
+                discardCard(i, currentPlayer, state, 1); // **BUG** Last parameter was 0, updating to 1 to correct
                 break;
             }
         }
