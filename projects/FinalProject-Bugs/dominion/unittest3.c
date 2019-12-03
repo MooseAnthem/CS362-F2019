@@ -46,7 +46,7 @@ int main () {
     for (int i = 0; i < state.handCount[currentPlayer]; i++) {
     	state.hand[currentPlayer][i] = silver; // Set all of the cards to silver
     }
-    state.hand[currentPlayer][0] = mine; // Set the card at position 0 to mine
+    state.hand[currentPlayer][0] = remodel; // Set the card at position 0 to remodel
 
     // Print out test title
     printFormatted("UNITTEST3 - Cost Check in remodel");
