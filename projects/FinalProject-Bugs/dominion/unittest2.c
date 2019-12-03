@@ -30,7 +30,7 @@ int main () {
 	// Set up variables for tests
     int choice1 = 1;
     int choice2 = gold;
-    int handPos = 4;
+    int handPos = 0;
     int numPlayers = 2;
     int currentPlayer = 0;
     
@@ -54,7 +54,7 @@ int main () {
     // Call the function being tested
     // Signature: cardEffect(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus)
     // Do tests
-    checkTrue(cardEffect(mine, choice1, choice2, 0, state, handPos, 0), 0, "cardEffect Returns 0");
+    checkTrue(cardEffect(mine, choice1, choice2, 0, &state, handPos, 0), 0, "cardEffect Returns 0");
 
     return 0;
 }

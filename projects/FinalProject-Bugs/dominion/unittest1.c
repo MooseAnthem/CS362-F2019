@@ -58,9 +58,7 @@ int main () {
 
     // Do tests
     checkTrue(state.playedCardCount, 1, "Played Card Count Equals 1");
-    checkTrue(state.playedCards[state.playedCardCount - 1], mine, "Index 0 of the Played Cards Array is the Mine Card");
-    printf("%d\n", state.playedCards[0]);
-    printf("%d\n", state.playedCards[1]);
+    checkTrue(state.playedCards[state.playedCardCount - 1], mine, "Last Index of the Played Cards Array is the Mine Card");
 
     return 0;
 }

@@ -54,7 +54,7 @@ int main () {
     // Call the function being tested
     // Signature: cardEffect(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus)
     // Do tests
-    checkTrue(cardEffect(remodel, choice1, choice2, 0, state, handPos, 0), 0, "remodel Returns 0");
+    checkTrue(cardEffect(remodel, choice1, choice2, 0, &state, handPos, 0), 0, "remodel Returns 0");
 
     return 0;
 }
