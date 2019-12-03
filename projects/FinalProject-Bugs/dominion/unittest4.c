@@ -29,7 +29,6 @@ void checkTrue(int x, int y, char* desc) {
 int main () {
 	// Set up variables for tests
     int numPlayers = 2;
-    int currentPlayer = 0;
     struct gameState state;
 
     // Print out test title
