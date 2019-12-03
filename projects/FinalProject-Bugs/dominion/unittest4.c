@@ -53,7 +53,7 @@ int main () {
     // Call the function being tested
     // Signature: int isGameOver(struct gameState *state)
     // Do tests
-    printFormatted("SUBTEST1 - sea_hag's supplyCount set to 0");
+    printf("SUBTEST1 - sea_hag's supplyCount set to 0\n");
     checkTrue(isGameOver(&state), 1, "isGameOver Returns 1");
 
 
@@ -75,7 +75,7 @@ int main () {
     // Call the function being tested
     // Signature: int isGameOver(struct gameState *state)
     // Do tests
-    printFormatted("SUBTEST1 - treasure_map's supplyCount set to 0");
+    printf("SUBTEST2 - treasure_map's supplyCount set to 0\n");
     checkTrue(isGameOver(&state), 1, "isGameOver Returns 1");
 
     return 0;
