@@ -30,6 +30,7 @@ int main () {
 	// Set up variables for tests
     int numPlayers = 2;
     int currentPlayer = 0;
+    struct gameState state;
 
     // Print out test title
     printFormatted("UNITTEST4 - isGameOver iterates over all cards");
@@ -40,8 +41,6 @@ int main () {
     
     int k[10] = {adventurer, council_room, feast, gardens, sea_hag,
         remodel, smithy, village, baron, great_hall};
-
-    struct gameState state;
 
     // Initialize the game struct
     memset(&state, 23, sizeof(struct gameState));
@@ -63,10 +62,8 @@ int main () {
     *********************** SUBTEST 2 ************************************
     *********************************************************************/
 
-    int k[10] = {adventurer, council_room, feast, gardens, sea_hag,
+    k = {adventurer, council_room, feast, gardens, sea_hag,
         remodel, smithy, village, baron, great_hall};
-
-    struct gameState state;
 
     // Initialize the game struct
     memset(&state, 23, sizeof(struct gameState));
