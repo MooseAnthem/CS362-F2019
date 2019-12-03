@@ -37,14 +37,14 @@ unittest7: unittest7.c dominion.o player
 unittest8: unittest8.c dominion.o player
 	gcc -o unittest8 -g unittest8.c dominion.o rngs.o $(CFLAGS)
 
-unittest9: unittest9.c dominion.o player
-	gcc -o unittest9 -g unittest9.c dominion.o rngs.o $(CFLAGS)
+unittest9: unittest9.c customAssert.c dominion.o player
+	gcc -o unittest9 -g unittest9.c customAssert.c dominion.o rngs.o $(CFLAGS)
 
-unittest10: unittest10.c dominion.o player
-	gcc -o unittest10 -g unittest10.c dominion.o rngs.o $(CFLAGS)
+unittest10: unittest10.c customAssert.c dominion.o player
+	gcc -o unittest10 -g unittest10.c customAssert.c dominion.o rngs.o $(CFLAGS)
 
-unittest11: unittest11.c dominion.o player
-	gcc -o unittest11 -g unittest11.c dominion.o rngs.o $(CFLAGS)
+unittest11: unittest11.c customAssert.c dominion.o player
+	gcc -o unittest11 -g unittest11.c customAssert.c dominion.o rngs.o $(CFLAGS)
 
 unittestresults: unittest1 unittest2 unittest3 unittest4 unittest5 unittest6 unittest7 unittest8 unittest9 unittest10 unittest11
 
