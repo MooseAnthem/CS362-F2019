@@ -33,6 +33,11 @@ int main()
 	// set the state of your variables
 	memset(&G, 23, sizeof(struct gameState)); // set the game state
 	initializeGame(2, k, seed, &G); // initialize a new game
+	int deck[10] = {copper, adventurer, duchy, gardens, minion, ambassador, mine, smithy, baron, feast};
+	G.deckCount[1] = 10;
+	for (int i = 0; i < G.deckCount[1]; i++ ) {
+		G.deck[1][i] = deck[i];
+	}
 
 	memcpy(&testG, &G, sizeof(struct gameState));
 	int currentPlayer = whoseTurn(&testG);
@@ -46,7 +51,7 @@ int main()
 	// call the Tribute function
 	cardEffect(tribute, choice1, choice2, choice3, &testG, handpos, &bonus);
         
-	
+	printf("***************%d*********************", ((testG.numActions - a) + (testG.coins - c) + (testG.handCount[currentPlayer] - h)));
 	if (((testG.numActions - a) + (testG.coins - c) + (testG.handCount[currentPlayer] - h)) == 4)
 		printf("Your Tribute loop is working correctly and your function is bug free\n");
 	else
