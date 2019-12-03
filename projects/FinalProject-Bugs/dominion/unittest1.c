@@ -51,7 +51,6 @@ int main () {
 
     // Print out test title
     printFormatted("UNITTEST1 - discardCard() in mine");
-    printf("%d\n", state.playedCardCount);
 
     // Call the function being tested
     // Signature: cardEffect(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus)
@@ -60,6 +59,8 @@ int main () {
     // Do tests
     checkTrue(state.playedCardCount, 1, "Played Card Count Equals 1");
     checkTrue(state.playedCards[state.playedCardCount - 1], mine, "Index 0 of the Played Cards Array is the Mine Card");
+    printf("%d\n", state.playedCards[0]);
+    printf("%d\n", state.playedCards[1]);
 
     return 0;
 }
