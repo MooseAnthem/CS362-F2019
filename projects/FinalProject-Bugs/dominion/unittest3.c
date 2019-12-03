@@ -29,8 +29,8 @@ void checkTrue(int x, int y, char* desc) {
 int main () {
 	// Set up variables for tests
     int choice1 = 1;
-    int choice2 = gold;
-    int handPos = 4;
+    int choice2 = silver;
+    int handPos = 0;
     int numPlayers = 2;
     int currentPlayer = 0;
     
