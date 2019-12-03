@@ -46,7 +46,6 @@ int main () {
     for (int i = 0; i < state.handCount[currentPlayer]; i++) {
     	state.hand[currentPlayer][i] = silver; // Set all of the cards to silver
     }
-    state.numPlayers = 2;
     state.hand[currentPlayer][0] = mine; // Set the card at position 0 to mine
 
     // Print out test title
