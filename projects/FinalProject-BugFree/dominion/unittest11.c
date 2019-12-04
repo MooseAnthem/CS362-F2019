@@ -43,7 +43,7 @@ int main()
 
     customAssert("Coins unchanged", P.coins == G.coins);
     customAssert("Player's hand redrawn to 4", G.handCount[0] == 4);
-    customAssert("Player's hand, deck, and discard modified", !memcmp(&G.hand[0], &P.hand[0], sizeof(int) * MAX_HAND) && !memcmp(&G.deck[0], &P.deck[0], sizeof(int) * MAX_HAND) && !memcmp(&G.discard[0], &P.discard[0], sizeof(int) * MAX_HAND));
+    customAssert("Player's hand modified", !memcmp(&G.hand[0], &P.hand[0], sizeof(int) * MAX_HAND));
 
 
 
